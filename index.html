@@ -10,9 +10,32 @@
 <body>
 	<div class="container">
 		<h1>Stundenplan GIBM</h1>
-		<select id="jobs" class="form-control">
-		</select>
-	</div>
+		<!-- Job-Dropdown -->
+		<select id="jobs" class="form-control"></select>
+		<br />
+		<!-- Class-Dropdown -->
+		<select id="classes" class="form-control" hidden></select>
+		<br />
+		<!-- Table -->
+		<div class="table-responsive">
+			<table id="timetable" class="table">
+				<thead>
+					<tr>
+						<th>Datum</th>
+						<th>Wochentag</th>
+						<th>Zeit</th>
+						<th>Lehrer</th>
+						<th>Fach</th>
+						<th>Raum</th>
+						<th>Kommentar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Data goes here -->
+				</tbody>
+			</table>
+		</div><!-- Table -->
+	</div><!-- Container -->
 </body>
 
 </html>

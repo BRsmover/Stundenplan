@@ -11,10 +11,20 @@ $(document).ready(function() {
 function getJobs(url) {
 	// Get JSON
 	$.getJSON(url, function(jobs) {
-		// Add option for each job to select
+		// Clear all jobs, all classes and the timetable
+		$('#jobs').empty();
+		$('#classes').empty();
+		
+		// Hide classes and timetable
+		$('#classes').hide();
+		$('#timetable').hide();
+		
+		// Add placeholder and load jobs
+		$('#jobs').append('<option value="-">-</option>');
 		$.each(jobs, function(job) {
 			$('#jobs').append('<option value="' + jobs[job].beruf_id + '">' + jobs[job].beruf_name + '</option>');
 		});
+		
 		// When job selected from dropdown get value and call getClasses()
 		$('#jobs').on('change', function() {
 			var jobID = $('#jobs').val();
@@ -26,9 +36,9 @@ function getJobs(url) {
 
 // Get classes
 function getClasses(url) {
-	// Add new dropdown
-	$('.container').append("<select id='classes' class='form-control'></select>");
-
+	// Show classes
+	$('#classes').show();
+	
 	// Get JSON
 	$.getJSON(url, function(classes) {
 		// Add option for each class to select
@@ -38,7 +48,13 @@ function getClasses(url) {
 		// When class selected from dropdown get value and call getHours
 		$('#classes').on('change', function() {
 			var classID = $('#classes').val();
-			var hoursUrl = 'http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + '44-2012';
+
+			// Get current week and year
+			var date = new Date();
+			var weekNumber = getCurrentWeek(date);
+			var year = (new Date).getFullYear();
+
+			var hoursUrl = 'http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + weekNumber + '-' + year;
 			// Get week and get year
 			getHours(hoursUrl);
 		});
@@ -47,15 +63,64 @@ function getClasses(url) {
 
 // Get hours
 function getHours(url) {
-	// Add new dropdown
-	var thead = "<thead><tr><th>Datum</th><th>Wochentag</th><th>Von</th><th>Bis</th><th>Lehrer</th><th>Fach</th><th>Raum</th><th>Kommentar</th></tr></thead>";
-	$('.container').append("<table id='hours' class='table table-hover table-responsive'>" + thead + "<tbody id='content'></tbody></table>");
+	// Show table
+	$('#timetable').show();
 
 	// Get JSON
 	$.getJSON(url, function(hours) {
 		// Add content to table
+		console.log(hours);
 		$.each(hours, function(hour) {
-			$('#content').append('<tr><td>' + hours[hour].tafel_datum + '</td></tr>');
+			var id = hours[hour].tafel_id;
+			$('#content').append('<tr id="' + id + '"></tr>');
+			$('#' + id).append('<td>' + hours[hour].tafel_datum + '</td>'); // Append to id with tafel_id
+			$().append('<td>' + hours[hour].tafel_wochentag + '</td>');
+			$().append('<td>' + hours[hour].tafel_von + ' - ' + hours[hour].tafel_bis + '</td>');
+			$().append('<td>' + hours[hour].tafel_lehrer + '</td>');
+			$().append('<td>' + hours[hour].tafel_longfach + '</td>');
+			$().append('<td>' + hours[hour].tafel_fach + ' - ' + hours[hour].tafel_datum + '</td>');
+			$().append('<td>' + hours[hour].tafel_raum + '</td>');
+			$().append('<td>' + hours[hour].tafel_kommentar + '</td>');
 		});
 	});
 };
+
+// Return number of current week
+function getCurrentWeek(date) {
+	var january = new Date(date.getFullYear(),0,1);
+	return Math.ceil((((date - january) / 86400000) + january.getDay()+1)/7);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
