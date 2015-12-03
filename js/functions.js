@@ -15,9 +15,10 @@ function getJobs(url) {
 		$('#jobs').empty();
 		$('#classes').empty();
 		
-		// Hide classes and timetable
+		// Hide classes and timetable (with week switch)
 		$('#classes').hide();
 		$('#timetable').hide();
+		$('#weekSwitcher').hide();
 		
 		// Add placeholder and load jobs
 		$('#jobs').append('<option value="-">-</option>');
@@ -41,7 +42,8 @@ function getClasses(url) {
 	
 	// Get JSON
 	$.getJSON(url, function(classes) {
-		// Add option for each class to select
+		// Add placeholder and load classes
+		$('#classes').append('<option value="-">-</option>');
 		$.each(classes, function(cl) {
 			$('#classes').append('<option value="' + classes[cl].klasse_id + '">' + classes[cl].klasse_longname + ' - ' + classes[cl].klasse_name + '</option>');
 		});
@@ -50,8 +52,7 @@ function getClasses(url) {
 			var classID = $('#classes').val();
 
 			// Get current week and year
-			var date = new Date();
-			var weekNumber = getCurrentWeek(date);
+			var weekNumber = getCurrentWeek();
 			var year = (new Date).getFullYear();
 
 			var hoursUrl = 'http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + weekNumber + '-' + year;
@@ -73,26 +74,35 @@ function getHours(url) {
 		$.each(hours, function(hour) {
 			var id = hours[hour].tafel_id;
 			$('#content').append('<tr id="' + id + '"></tr>');
-			$('#' + id).append('<td>' + hours[hour].tafel_datum + '</td>'); // Append to id with tafel_id
-			$().append('<td>' + hours[hour].tafel_wochentag + '</td>');
-			$().append('<td>' + hours[hour].tafel_von + ' - ' + hours[hour].tafel_bis + '</td>');
-			$().append('<td>' + hours[hour].tafel_lehrer + '</td>');
-			$().append('<td>' + hours[hour].tafel_longfach + '</td>');
-			$().append('<td>' + hours[hour].tafel_fach + ' - ' + hours[hour].tafel_datum + '</td>');
-			$().append('<td>' + hours[hour].tafel_raum + '</td>');
-			$().append('<td>' + hours[hour].tafel_kommentar + '</td>');
+			$('#' + id).append('<td>' + hours[hour].tafel_datum + '</td>');
+			$('#' + id).append('<td>' + getDay(hours[hour].tafel_wochentag) + '</td>');
+			$('#' + id).append('<td>' + hours[hour].tafel_von + ' - ' + hours[hour].tafel_bis + '</td>');
+			$('#' + id).append('<td>' + hours[hour].tafel_lehrer + '</td>');
+			$('#' + id).append('<td>' + hours[hour].tafel_longfach + '</td>');
+			$('#' + id).append('<td>' + hours[hour].tafel_raum + '</td>');
+			$('#' + id).append('<td>' + hours[hour].tafel_kommentar + '</td>');
 		});
 	});
+
+	// Show week switch buttons
+	$('<li>' + getCurrentWeek() + '</li>').insertAfter('#previous');
+	$('#weekSwitcher').show();
 };
 
 // Return number of current week
-function getCurrentWeek(date) {
+function getCurrentWeek() {
+	var date = new Date();
 	var january = new Date(date.getFullYear(),0,1);
 	return Math.ceil((((date - january) / 86400000) + january.getDay()+1)/7);
 };
 
+// Get Weekday from number
+function getDay(number) {
+	var weekdays = new Array('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
+	return weekdays[number];
+};
 
-
+// Switch weeks
 
 
 
