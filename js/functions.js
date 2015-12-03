@@ -102,7 +102,23 @@ function getDay(number) {
 	return weekdays[number];
 };
 
-// Switch weeks
+// Switch to previous week
+$('#previous').click( function() {
+	var week = getCurrentWeek();
+	week = week - 1;
+	var year = (new Date).getFullYear();
+	if (week == 0) {
+		year = year - 1 ;
+		week = 52;
+		console.log('Old year');
+		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
+	} else {
+		console.log('Still the same year...');
+		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
+	}
+});
+
+// Switch to next week
 
 
 
