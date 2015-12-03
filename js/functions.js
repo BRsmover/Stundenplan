@@ -85,7 +85,7 @@ function getHours(url) {
 	});
 
 	// Show week switch buttons
-	$('<li>' + getCurrentWeek() + '</li>').insertAfter('#previous');
+	$('<li><a href="#">' + getCurrentWeek() + '</a></li>').insertAfter('#previous');
 	$('#weekSwitcher').show();
 };
 
