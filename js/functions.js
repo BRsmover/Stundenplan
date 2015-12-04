@@ -103,7 +103,7 @@ function getDay(number) {
 };
 
 // Switch to previous week
-$('#previous').click( function() {
+$('#previous').on('click', function() {
 	var week = getCurrentWeek();
 	week = week - 1;
 	var year = (new Date).getFullYear();
@@ -119,15 +119,20 @@ $('#previous').click( function() {
 });
 
 // Switch to next week
-
-
-
-
-
-
-
-
-
+$('#next').on('click', function() {
+	var week = getCurrentWeek();
+	week = week + 1;
+	var year = (new Date).getFullYear();
+	if (week == 53) {
+		year = year + 1 ;
+		week = 1;
+		console.log('New year');
+		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
+	} else {
+		console.log('Still the same year...');
+		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
+	}
+});
 
 
 
