@@ -65,7 +65,7 @@ function getClasses(url) {
 // Get hours
 function getHours(url) {
 	// Show table
-	$('#timetable').show();
+	$('#timetable').fadeIn();
 
 	// Get JSON
 	$.getJSON(url, function(hours) {
@@ -86,7 +86,7 @@ function getHours(url) {
 
 	// Show week switch buttons
 	$('<li><a href="#">' + getCurrentWeek() + '</a></li>').insertAfter('#previous');
-	$('#weekSwitcher').show();
+	$('#weekSwitcher').fadeIn();
 };
 
 // Return number of current week
@@ -111,9 +111,15 @@ $('#previous').on('click', function() {
 		year = year - 1 ;
 		week = 52;
 		console.log('Old year');
+		// Empty table
+		//$('#timetable').empty();
+		// Fill with new data
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	} else {
 		console.log('Still the same year...');
+		// Empty table
+		//$('#timetable').empty();
+		// Fill with new data
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	}
 });
@@ -133,25 +139,3 @@ $('#next').on('click', function() {
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	}
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
