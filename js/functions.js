@@ -1,11 +1,11 @@
 // When document is ready
 $(document).ready(function() {
-	// URL to get data from
-	var jobUrl = 'http://home.gibm.ch/interfaces/133/berufe.php';
-	// Calling method to get jobs
-	getJobs(jobUrl);
-// 	getJobs('data.json');
-});
+
+// URL to get data from
+var jobUrl = 'http://home.gibm.ch/interfaces/133/berufe.php';
+// Calling method to get jobs
+getJobs(jobUrl);
+//getJobs('data.json');
 
 // Get jobs
 function getJobs(url) {
@@ -104,10 +104,9 @@ function getDay(number) {
 };
 
 // Switch to previous week
-$('#previous').on('click', 'a', function() {
+$('#previous-link').click(function() {
 	alert('Previous week!');
-
-	var week = getCurrentWeek();
+		var week = getCurrentWeek();
 	week = week - 1;
 	var year = (new Date).getFullYear();
 	if (week == 0) {
@@ -128,7 +127,7 @@ $('#previous').on('click', 'a', function() {
 });
 
 // Switch to next week
-$('#next').on('click', 'a', function() {
+$('#next-link').click(function() {
 	alert('Next week!');
 
 	var week = getCurrentWeek();
@@ -144,3 +143,5 @@ $('#next').on('click', 'a', function() {
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	}
 });
+
+}); // $(document).ready()
