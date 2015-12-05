@@ -119,12 +119,16 @@ $('#previous-link').click(function() {
 		console.log('Old year');
 		// Overwrite week number
 		$('#weekNumber').replaceWith('<li id="weekNumber"><a href="#">' + week + '</a></li>')
+		// Empty tbody
+		$('#content').empty();
 		// Fill with new data
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	} else {
 		console.log('Still the same year...');
 		// Overwrite week number
 		$('#weekNumber').replaceWith('<li id="weekNumber"><a href="#">' + week + '</a></li>')
+		// Empty tbody
+		$('#content').empty();
 		// Fill with new data
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	}
@@ -143,12 +147,16 @@ $('#next-link').click(function() {
 		console.log('New year');
 		// Overwrite week number
 		$('#weekNumber').replaceWith('<li id="weekNumber"><a href="#">' + week + '</a></li>')
+		// Empty tbody
+		$('#content').empty();
 		// Fill with new data
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	} else {
 		console.log('Still the same year...');
 		// Overwrite week number
 		$('#weekNumber').replaceWith('<li id="weekNumber"><a href="#">' + week + '</a></li>')
+		// Empty tbody
+		$('#content').empty();
 		// Fill with data
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	}
