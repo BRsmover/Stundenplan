@@ -16,6 +16,7 @@ function getJobs(url) {
 		$('#classes').empty();
 		
 		// Hide classes and timetable (with week switch)
+		$('#classParagraph').hide();
 		$('#classes').hide();
 		$('#timetable').hide();
 		$('#weekSwitcher').hide();
@@ -37,7 +38,8 @@ function getJobs(url) {
 
 // Get classes
 function getClasses(url) {
-	// Show classes
+	// Show paragraph and classes
+	$('#classParagraph').show();
 	$('#classes').show();
 	
 	// Get JSON
@@ -70,7 +72,7 @@ function getHours(url) {
 	// Get JSON
 	$.getJSON(url, function(hours) {
 		// Add content to table
-		console.log(hours);
+		//console.log(hours);
 		$.each(hours, function(hour) {
 			var id = hours[hour].tafel_id;
 			$('#content').append('<tr id="' + id + '"></tr>');
@@ -93,7 +95,8 @@ function getHours(url) {
 	}
 };
 
-// Return number of current week
+// Function to get number of current week as seen on:
+// http://zerosixthree.se/snippets/get-week-of-the-year-with-jquery/
 function getCurrentWeek() {
 	var date = new Date();
 	var january = new Date(date.getFullYear(),0,1);
@@ -110,13 +113,13 @@ function getDay(number) {
 $('#previous-link').click(function() {
 	var classID = $('#classes').val();
 	var week = parseInt($('#weekNumber').text(), 10);
-	console.log('week ' + week);
+	//console.log('week ' + week);
 	week = week - 1;
 	var year = (new Date).getFullYear();
 	if (week == 0) {
 		year = year - 1 ;
 		week = 52;
-		console.log('Old year');
+		//console.log('Old year');
 		// Overwrite week number
 		$('#weekNumber').replaceWith('<li id="weekNumber"><a href="#">' + week + '</a></li>')
 		// Empty tbody
@@ -124,7 +127,7 @@ $('#previous-link').click(function() {
 		// Fill with new data
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	} else {
-		console.log('Still the same year...');
+		//console.log('Still the same year...');
 		// Overwrite week number
 		$('#weekNumber').replaceWith('<li id="weekNumber"><a href="#">' + week + '</a></li>')
 		// Empty tbody
@@ -138,13 +141,13 @@ $('#previous-link').click(function() {
 $('#next-link').click(function() {
 	var classID = $('#classes').val();
 	var week = parseInt($('#weekNumber').text(), 10);
-	console.log('week ' + week);
+	//console.log('week ' + week);
 	week = week + 1;
 	var year = (new Date).getFullYear();
 	if (week == 53) {
 		year = year + 1 ;
 		week = 1;
-		console.log('New year');
+		//console.log('New year');
 		// Overwrite week number
 		$('#weekNumber').replaceWith('<li id="weekNumber"><a href="#">' + week + '</a></li>')
 		// Empty tbody
@@ -152,7 +155,7 @@ $('#next-link').click(function() {
 		// Fill with new data
 		getHours('http://home.gibm.ch/interfaces/133/tafel.php?klasse_id=' + classID + '&woche=' + week + '-' + year);
 	} else {
-		console.log('Still the same year...');
+		//console.log('Still the same year...');
 		// Overwrite week number
 		$('#weekNumber').replaceWith('<li id="weekNumber"><a href="#">' + week + '</a></li>')
 		// Empty tbody
