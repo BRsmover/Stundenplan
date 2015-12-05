@@ -104,7 +104,7 @@ function getDay(number) {
 };
 
 // Switch to previous week
-$('#previous').click(function() {
+$('#previous').on('click', 'a', function() {
 	alert('Previous week!');
 
 	var week = getCurrentWeek();
@@ -128,7 +128,7 @@ $('#previous').click(function() {
 });
 
 // Switch to next week
-$('#next').click(function() {
+$('#next').on('click', 'a', function() {
 	alert('Next week!');
 
 	var week = getCurrentWeek();
