@@ -86,6 +86,7 @@ function getHours(url) {
 
 	// Show week switch buttons
 	$('<li><a href="#">' + getCurrentWeek() + '</a></li>').insertAfter('#previous');
+// 	$('<button class="btn btn-default"><span id="weekNumber">' + getCurrentWeek() + '</span></button>').insertAfter('#previous');
 	$('#weekSwitcher').fadeIn();
 };
 
@@ -103,7 +104,9 @@ function getDay(number) {
 };
 
 // Switch to previous week
-$('#previous').on('click', function() {
+$('#previous').click(function() {
+	alert('Previous week!');
+
 	var week = getCurrentWeek();
 	week = week - 1;
 	var year = (new Date).getFullYear();
@@ -125,7 +128,9 @@ $('#previous').on('click', function() {
 });
 
 // Switch to next week
-$('#next').on('click', function() {
+$('#next').click(function() {
+	alert('Next week!');
+
 	var week = getCurrentWeek();
 	week = week + 1;
 	var year = (new Date).getFullYear();
