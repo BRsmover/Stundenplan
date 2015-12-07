@@ -1,3 +1,4 @@
+/* Cut off margin on mobiles */
 @media (max-width: 767px) {
     .container {
       margin-left: 10px;
@@ -5,4 +6,22 @@
 	  margin-bottom: auto;
 	  margin-top: auto;
     }
+}
+
+/* Color styling */
+h1, p {
+	color: #AE1E00;
+}
+
+.form-control:focus {
+	border-color: #FF0000;
+	box-shadow: inset #AE1E00;
+}
+
+.pagination > li > a {
+	color: #AE1E00;
+}
+
+.pagination > li > a:hover {
+	color: black;
 }
